@@ -15,6 +15,22 @@ public class Usuario {
     private String login;
     private String senha;
     private boolean adm;
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public boolean isAdm() {
+        return adm;
+    }
+
+    public void setAdm(boolean adm) {
+        this.adm = adm;
+    }
     
     private Set<Musica> musicasFavoritas; 
 
