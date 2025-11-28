@@ -10,9 +10,11 @@ public interface MusicaRepository {
     
     public List<Musica> listar();
     
-    public List<Musica> buscarPorGenero();
+    public List<Musica> buscarPorGenero(Genero genero);
     
-    public List<Musica> buscarPorBanda();
+    public List<Musica> buscarPorBanda(Banda banda);
+        
+    public void cadastrar(Musica musica);
     
     public void marcarFavorita(Musica musica);
     
@@ -23,4 +25,6 @@ public interface MusicaRepository {
     public void editarGenero(Musica musica, Genero novoGenero);
     
     public void editarBanda(Musica musica, Banda novaBanda);
+    
+    public void removerMusica(Musica musica);
 }

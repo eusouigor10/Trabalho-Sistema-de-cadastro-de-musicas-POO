@@ -1,13 +1,24 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package JPA;
 
-/**
- *
- * @author guilh
- */
-public class UsuarioRepositoryJPA {
+import Entidades.Usuario;
+import Repository.UsuarioRepository;
+import jakarta.ejb.Stateless;
+import jakarta.persistence.EntityManager;
+
+@Stateless
+public class UsuarioRepositoryJPA implements UsuarioRepository {
     
+    private EntityManager em;
+
+    @Override
+    public void editarNome(Usuario usuario, String novoNome) {
+        usuario.setNome(novoNome);
+        em.merge(usuario); 
+    }
+
+    @Override
+    public void alterarSenha(Usuario usuario, String novaSenha) {
+        usuario.setSenha(novaSenha);
+        em.merge(usuario); 
+    }
 }
