@@ -17,7 +17,21 @@ public class Genero {
     String nome;
     
     @OneToMany(mappedBy = "genero")
-    private Set<Musica> musica;
-    
-    
+    private Set<Musica> musicas;
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public Set<Musica> getMusicas() {
+        return musicas;
+    }
+
+    public void setMusica(Set<Musica> musica) {
+        this.musicas = musica;
+    }
 }

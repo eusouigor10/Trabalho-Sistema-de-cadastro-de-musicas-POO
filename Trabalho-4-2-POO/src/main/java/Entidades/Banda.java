@@ -17,4 +17,16 @@ public class Banda {
     
     @OneToMany(mappedBy = "banda")
     private Set<Musica> musicas;
+
+    public Set<Musica> getMusicas() {
+        return musicas;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getNome() {
+        return nome;
+    }
 }

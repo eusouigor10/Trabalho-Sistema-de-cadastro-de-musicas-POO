@@ -13,5 +13,7 @@ public interface GeneroRepository {
     
     public void editarNome(Genero genero, String novoNome);
     
-    public void remover(Genero genero);
+    public boolean remover(Genero genero);
+    
+    public List<Genero> buscarPorNome(String nome);
 }
