@@ -1,13 +1,15 @@
 package Beans;
 
 import Entidades.Usuario;
-import JPA.UsuarioRepositoryJPA;
+import Repository.UsuarioRepository;
 import jakarta.inject.Inject;
+import jakarta.inject.Named;
 
+@Named("boasVindasBean")
 public class BoasVindasBean {
 
     @Inject
-    UsuarioRepositoryJPA repository;
+    UsuarioRepository repository;
 
     Usuario usuario;
 

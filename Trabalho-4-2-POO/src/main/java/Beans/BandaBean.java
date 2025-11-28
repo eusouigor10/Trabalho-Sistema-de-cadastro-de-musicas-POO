@@ -1,7 +1,7 @@
 package Beans;
 
 import Entidades.Banda;
-import JPA.BandaRepositoryJPA;
+import Repository.BandaRepository;
 import jakarta.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +9,7 @@ import java.util.List;
 public class BandaBean {
 
     @Inject
-    private BandaRepositoryJPA repository;
+    private BandaRepository repository;
 
     private String nome;
     

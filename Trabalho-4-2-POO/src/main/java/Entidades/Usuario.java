@@ -17,6 +17,7 @@ public class Usuario {
     private String login;
     private String senha;
     private boolean adm;
+    private boolean logado = false;
 
     public String getLogin() {
         return login;
@@ -50,5 +51,13 @@ public class Usuario {
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    public boolean isLogado() {
+        return logado;
+    }
+
+    public void setLogado(boolean logado) {
+        this.logado = logado;
     }
 }

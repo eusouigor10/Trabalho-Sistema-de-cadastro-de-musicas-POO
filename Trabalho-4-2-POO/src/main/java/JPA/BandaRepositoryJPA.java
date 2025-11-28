@@ -10,7 +10,7 @@ import java.util.List;
 
 public class BandaRepositoryJPA implements BandaRepository{
     
-    @PersistenceContext
+    @PersistenceContext(unitName = "BancoDeDadosProjetoFinal")
     EntityManager em;
 
     @Override

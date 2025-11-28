@@ -10,4 +10,10 @@ public interface UsuarioRepository {
     public void alterarSenha(Usuario usuario, String novaSenha);
     
     public void cadastrar(Usuario usuario);
+    
+    public Usuario buscarPorLogin(String login);
+    
+    public Usuario criacaoUsuarioAdmin(Usuario usuario);
+    
+    public boolean verificacaoExistenciaUsuario(Usuario usuario);
 }

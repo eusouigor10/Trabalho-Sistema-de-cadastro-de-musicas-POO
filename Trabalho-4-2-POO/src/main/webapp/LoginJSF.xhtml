@@ -3,9 +3,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="jakarta.faces.html">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Página de login</title>
     </h:head>
     <h:body>
-        Hello from Facelets
+        <h:form>
+            <h:outputText value="Username " /> <h:inputText value="#{loginBean.login}" /> <br/>
+            <h:outputText value="Senha " /> <h:inputText value="#{loginBean.senha}" /> <br/>
+            <h:commandButton value="Fazer login" action="#{loginBean.fazerLogin()}" /> <br/>
+            <h:outputText value="#{loginBean.mensagem}" />
+        </h:form>
     </h:body>
 </html>

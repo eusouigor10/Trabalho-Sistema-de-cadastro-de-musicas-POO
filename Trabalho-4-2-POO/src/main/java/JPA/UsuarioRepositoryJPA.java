@@ -2,13 +2,15 @@ package JPA;
 
 import Entidades.Usuario;
 import Repository.UsuarioRepository;
+import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 
+@Stateless
 public class UsuarioRepositoryJPA implements UsuarioRepository {
     
-    @PersistenceContext
+    @PersistenceContext(unitName = "BancoDeDadosProjetoFinal")
     private EntityManager em;
     
     public Usuario criacaoUsuarioAdmin(Usuario usuario){
@@ -46,5 +48,10 @@ public class UsuarioRepositoryJPA implements UsuarioRepository {
         em.persist(usuario);
     }
     
+    @Override
+    public Usuario buscarPorLogin(String login){
+        return em.createQuery("SELECT u FROM Usuario u WHERE u.login = :login", Usuario.class)
+                .setParameter("login", login).getSingleResult();
+    }
     
 }

@@ -12,7 +12,7 @@ import java.util.List;
 
 public class MusicaRepositoryJPA implements MusicaRepository {
 
-    @PersistenceContext
+    @PersistenceContext(unitName = "BancoDeDadosProjetoFinal")
     private EntityManager em;
 
     @Override

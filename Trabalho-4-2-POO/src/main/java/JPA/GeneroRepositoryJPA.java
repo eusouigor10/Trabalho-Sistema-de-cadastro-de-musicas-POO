@@ -3,14 +3,16 @@ package JPA;
 
 import Entidades.Genero;
 import Repository.GeneroRepository;
+import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 import java.util.List;
 
+@Stateless
 public class GeneroRepositoryJPA implements GeneroRepository{
 
-    @PersistenceContext
+    @PersistenceContext(unitName = "BancoDeDadosProjetoFinal")
     EntityManager em;
     
     @Override
