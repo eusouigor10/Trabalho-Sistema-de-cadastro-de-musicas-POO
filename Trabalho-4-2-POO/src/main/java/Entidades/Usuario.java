@@ -33,6 +33,20 @@ public class Usuario {
     public void setSenha(String senha) {
         this.senha = senha;
     }
-    
-    
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public boolean isAdm() {
+        return adm;
+    }
+
+    public void setAdm(boolean adm) {
+        this.adm = adm;
+    }
 }
