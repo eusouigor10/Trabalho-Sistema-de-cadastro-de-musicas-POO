@@ -5,11 +5,14 @@ import Entidades.Genero;
 import Entidades.Musica;
 import Repository.MusicaRepository;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
+import jakarta.transaction.Transactional;
 import java.util.List;
 
 public class MusicaRepositoryJPA implements MusicaRepository {
 
+    @PersistenceContext
     private EntityManager em;
 
     @Override
@@ -35,41 +38,48 @@ public class MusicaRepositoryJPA implements MusicaRepository {
     }
 
     @Override
+    @Transactional
     public void cadastrar(Musica musica) {
         em.persist(musica);
     }
 
     @Override
+    @Transactional
     public void marcarFavorita(Musica musica) {
         musica.setFavorita(true);
         em.merge(musica);
     }
 
     @Override
+    @Transactional
     public void desmarcarFavorita(Musica musica) {
         musica.setFavorita(false);
         em.merge(musica);
     }
 
     @Override
+    @Transactional
     public void editarNome(Musica musica, String novoNome) {
         musica.setNome(novoNome);
         em.merge(musica);
     }
 
     @Override
+    @Transactional
     public void editarGenero(Musica musica, Genero novoGenero) {
         musica.setGenero(novoGenero);
         em.merge(musica);
     }
 
     @Override
+    @Transactional
     public void editarBanda(Musica musica, Banda novaBanda) {
         musica.setBanda(novaBanda);
         em.merge(musica);
     }
 
     @Override
+    @Transactional
     public void removerMusica(Musica musica) {
         Musica m = em.find(Musica.class, musica.getId());
         if (m != null) {
