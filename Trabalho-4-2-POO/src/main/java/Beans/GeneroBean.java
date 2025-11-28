@@ -5,12 +5,19 @@ import Repository.GeneroRepository;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+<<<<<<< Updated upstream
 import java.io.Serializable;
 import java.util.List;
 
 @Named("generoBean")
 @ViewScoped
 public class GeneroBean implements Serializable{
+=======
+import java.util.List;
+
+@Named("generoBean")
+public class GeneroBean {
+>>>>>>> Stashed changes
 
     @Inject
     private GeneroRepository generoRepository;

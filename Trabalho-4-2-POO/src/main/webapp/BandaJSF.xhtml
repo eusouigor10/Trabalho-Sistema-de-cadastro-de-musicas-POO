@@ -1,11 +1,62 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="jakarta.faces.html">
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:ui="jakarta.faces.facelets">
+    
     <h:head>
-        <title>Facelet Title</title>
+        <title>Gerenciamento de Bandas</title>
     </h:head>
+    
     <h:body>
-        Hello from Facelets
+        
+        <h2>Cadastro de Nova Banda</h2>
+        <h:form>
+            <h:panelGrid columns="3">
+                <h:outputLabel value="Nome da Banda:" for="nomeBanda"/>
+                <h:inputText id="nomeBanda" value="#{bandaBean.nome}" required="true"/>
+                <h:commandButton value="Cadastrar" action="#{bandaBean.cadastrar}"/>
+            </h:panelGrid>
+        </h:form>
+
+        <hr/>
+        
+        <h2>Buscar Bandas</h2>
+        <h:form>
+            <h:panelGrid columns="3">
+                <h:outputLabel value="Nome para Busca:" for="nomeBusca"/>
+                <h:inputText id="nomeBusca" value="#{bandaBean.nome}"/>
+                <h:commandButton value="Buscar" action="#{bandaBean.filtrar}"/>
+            </h:panelGrid>
+        </h:form>
+        
+        <hr/>
+        
+        <h2>Lista de Bandas Filtradas</h2>
+        
+        <h:messages globalOnly="true" style="color: blue;"/>
+        <h:outputText value="#{bandaBean.resultadoRemocao}" style="color: green; font-weight: bold;" rendered="#{bandaBean.resultadoRemocao != null}"/>
+        
+        <h:dataTable value="#{bandaBean.listaFiltrada}" var="banda" 
+                     rendered="#{not empty bandaBean.listaFiltrada}"
+                     border="1">
+            
+            <h:column>
+                <f:facet name="header">Nome</f:facet>
+                <h:outputText value="#{banda.nome}"/>
+            </h:column>
+            
+            <h:column>
+                <f:facet name="header">Ações</f:facet>
+                <h:form>
+                    <h:commandLink value="Remover" action="#{bandaBean.remover(banda)}"/>
+                </h:form>
+            </h:column>
+            
+        </h:dataTable>
+        
+        <h:outputText value="Nenhuma banda encontrada." rendered="#{empty bandaBean.listaFiltrada}"/>
+
     </h:body>
 </html>

@@ -3,7 +3,9 @@ package Beans;
 import Entidades.Usuario;
 import Repository.UsuarioRepository;
 import jakarta.inject.Inject; 
+import jakarta.inject.Named;
 
+@Named("usuarioBean")
 public class UsuarioBean {
     
     @Inject

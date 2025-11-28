@@ -4,8 +4,10 @@ import Entidades.Banda;
 import Entidades.Genero;
 import Entidades.Musica;
 import Repository.MusicaRepository;
+import jakarta.inject.Named;
 import java.util.List;
 
+@Named("musicaBean")
 public class MusicaBean {
 
     private final MusicaRepository musicaRepository;
