@@ -26,6 +26,8 @@ public class GeneroBean implements Serializable {
     private String mensagemResultadoCadastro = "";
     private Genero generoPassado;
 
+    private Genero generoEditando;
+
     public List<Genero> getGeneros() {
         if (generos == null) {
             generos = generoRepository.listar();
@@ -36,8 +38,8 @@ public class GeneroBean implements Serializable {
     public String getMensagemResultadoCadastro() {
         return mensagemResultadoCadastro;
     }
-    
-    public List<Musica> listarMusicas(Genero genero){
+
+    public List<Musica> listarMusicas(Genero genero) {
         return genero.getMusicas();
     }
 
@@ -50,22 +52,34 @@ public class GeneroBean implements Serializable {
     }
 
     public String cadastrar() {
-        Genero genero = new Genero();
-        genero.setNome(nomeCadastro);
-        generoRepository.cadastrar(genero);
-        mensagemResultadoCadastro = "Cadastro concluído";
-        return "GeneroJSF.xhtml";
+        try {
+            Genero genero = new Genero();
+            genero.setNome(nomeCadastro);
+
+            generoRepository.cadastrar(genero);
+            mensagemResultadoCadastro = "Cadastro concluído com sucesso!";
+
+            nomeCadastro = "";          // limpa campo
+            generos = null;    
+            listaFiltrada = null; // força recarregar a tabela
+            return "GeneroJSF.xhtml?faces-redirect=true";
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            mensagemResultadoCadastro = "Erro ao cadastrar gênero.";
+            return null;
+        }
     }
-    
-    public String enviarParaPaginaDeCadastro(){
+
+    public String enviarParaPaginaDeCadastro() {
         return "CadastroGenerosJSF.xhtml";
     }
 
     public Genero getGeneroPassado() {
         return generoPassado;
     }
-    
-    public String enviarParaPaginaDeMusicas(Genero genero){
+
+    public String enviarParaPaginaDeMusicas(Genero genero) {
         generoPassado = genero;
         return "MusicasDoGeneroJSF.xhtml";
     }
@@ -83,7 +97,6 @@ public class GeneroBean implements Serializable {
             boolean removido = generoRepository.remover(genero);
             if (removido) {
                 generos = null;
-            } else {
             }
             return null;
         } catch (Exception e) {
@@ -132,5 +145,31 @@ public class GeneroBean implements Serializable {
 
     public void setNovoNome(String novoNome) {
         this.novoNome = novoNome;
+    }
+
+    public Genero getGeneroEditando() {
+        return generoEditando;
+    }
+
+    public void setGeneroEditando(Genero generoEditando) {
+        this.generoEditando = generoEditando;
+    }
+
+    public String enviarParaPaginaDeEdicao(Genero genero) {
+        this.generoEditando = genero;
+        this.novoNome = genero.getNome();
+        return "EditarGeneroJSF.xhtml?faces-redirect=true";
+    }
+
+    public String salvarEdicaoGenero() {
+        try {
+            generoRepository.editarNome(generoEditando, novoNome);
+            mensagemResultadoCadastro = "Gênero alterado com sucesso!";
+            generos = null;
+            return "GeneroJSF.xhtml?faces-redirect=true";
+        } catch (Exception e) {
+            mensagemResultadoCadastro = "Erro ao editar gênero.";
+            return null;
+        }
     }
 }

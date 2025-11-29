@@ -1,15 +1,24 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="jakarta.faces.html">
-    <h:head>
-        <title>Página de cadastro de gêneros</title>
-    </h:head>
-    <h:body>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="jakarta.faces.html"
+                xmlns:ui="jakarta.faces.facelets"
+                template="template.xhtml">
+
+    <ui:define name="title">Cadastrar gênero</ui:define>
+
+    <ui:define name="content">
+
+        <!-- SEU CÓDIGO ORIGINAL -->
         <h:form>
             <h:outputText value="Nome do gênero " />
             <h:inputText value="#{generoBean.nomeCadastro}" />
             <h:commandButton value="Cadastrar" action="#{generoBean.cadastrar()}" />
         </h:form>
-    </h:body>
-</html>
+        <!-- FIM DO SEU CÓDIGO ORIGINAL -->
+
+    </ui:define>
+
+</ui:composition>

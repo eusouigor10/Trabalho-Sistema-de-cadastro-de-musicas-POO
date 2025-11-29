@@ -29,20 +29,29 @@ public class GeneroRepositoryJPA implements GeneroRepository{
     @Override
     @Transactional
     public void editarNome(Genero genero, String novoNome) {
-        genero.setNome(novoNome);
-        em.merge(genero);
+        Genero g = em.find(Genero.class, genero.getId());
+
+        if (g != null) {
+         g.setNome(novoNome);
+        }
     }
+
 
     @Override
     @Transactional
     public boolean remover(Genero genero) {
-        if(genero.getMusicas().isEmpty()){
+
+        genero = em.merge(genero); // garantir que está gerenciado
+
+    // só remove se NÃO tiver músicas
+        if (!genero.getMusicas().isEmpty()) {
             return false;
-        }else{
-            em.remove(genero);
-            return true;
-        }
     }
+
+        em.remove(genero);
+        return true;
+    }
+
 
     @Override
     public List<Genero> buscarPorNome(String nome) {

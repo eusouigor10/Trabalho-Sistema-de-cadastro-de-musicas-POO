@@ -14,25 +14,19 @@ public class Genero {
     @Id
     @GeneratedValue
     int id;
-    
+
     String nome;
-    
+
     @OneToMany(mappedBy = "genero")
     private List<Musica> musicas;
 
-    public String getNome() {
-        return nome;
-    }
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+    public String getNome() { return nome; }
+    public void setNome(String nome) { this.nome = nome; }
 
-    public List<Musica> getMusicas() {
-        return musicas;
-    }
-
-    public void setMusica(List<Musica> musica) {
-        this.musicas = musica;
-    }
+    public List<Musica> getMusicas() { return musicas; }
+    public void setMusica(List<Musica> musica) { this.musicas = musica; }
 }
+

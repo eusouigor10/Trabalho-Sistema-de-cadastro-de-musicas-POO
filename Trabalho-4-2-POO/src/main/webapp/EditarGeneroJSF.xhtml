@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="jakarta.faces.html"
+                xmlns:f="jakarta.faces.core"
+                xmlns:ui="jakarta.faces.facelets"
+                template="template.xhtml">
+
+    <ui:define name="title">Editar gênero</ui:define>
+
+    <ui:define name="content">
+
+        <h:form>
+
+            <h2>Editar gênero</h2>
+
+            <h:panelGrid columns="2" cellpadding="5">
+
+                <h:outputText value="Nome atual:" />
+                <h:outputText value="#{generoBean.generoEditando.nome}" />
+
+                <h:outputText value="Novo nome:" />
+                <h:inputText value="#{generoBean.novoNome}" />
+
+            </h:panelGrid>
+
+            <br/>
+
+            <h:commandButton value="Salvar" action="#{generoBean.salvarEdicaoGenero()}" />
+            <span>     </span>
+            <h:commandButton value="Cancelar" action="GeneroJSF.xhtml?faces-redirect=true" />
+
+            <br/><br/>
+
+            <h:outputText value="#{generoBean.mensagemResultadoCadastro}" style="color: green;" />
+
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

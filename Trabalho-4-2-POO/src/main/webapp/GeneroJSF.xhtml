@@ -1,30 +1,75 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="jakarta.faces.html"
-      xmlns:f="jakarta.faces.core">
-    <h:head>
-        <title>Página de gêneros</title>
-    </h:head>
-    <h:body>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="jakarta.faces.html"
+                xmlns:f="jakarta.faces.core"
+                xmlns:ui="jakarta.faces.facelets"
+                template="template.xhtml">
+
+    <ui:define name="title">Página de gêneros</ui:define>
+
+    <ui:define name="content">
+
         <h:form>
-            <h:outputText value="Buscar por nome " /> 
+
+            <!-- BUSCA -->
+            <h:outputText value="Buscar por nome " />
             <h:inputText value="#{generoBean.nomeBusca}">
                 <f:ajax event="keyup" render="tabela" />
-            </h:inputText> <br/>
-            <h:dataTable id="tabela" value="#{generoBean.listaFiltrada}" var="g" >
+            </h:inputText>
+            <br/><br/>
+
+            <!-- TABELA -->
+            <h:dataTable id="tabela"
+             value="#{empty generoBean.listaFiltrada ? generoBean.generos : generoBean.listaFiltrada}"
+             var="g" border="1">
+
+
+                <!-- Nome -->
                 <h:column>
-                    <f:facet name="header" >
-                        <h:outputText value="Gênero" />
-                    </f:facet>
+                    <f:facet name="header">Gênero</f:facet>
                     <h:outputText value="#{g.nome}" />
                 </h:column>
+
+                <!-- Ver músicas -->
                 <h:column>
-                    <h:commandButton value="Ver" action="#{generoBean.enviarParaPaginaDeMusicas(g)}" />
+                    <f:facet name="header">Músicas</f:facet>
+                    <h:commandButton value="Ver"
+                                     action="#{generoBean.enviarParaPaginaDeMusicas(g)}" />
                 </h:column>
+
+                <!-- Editar -->
+                <h:column>
+                    <f:facet name="header">Editar</f:facet>
+                    <h:commandButton value="Editar"
+                                     action="#{generoBean.enviarParaPaginaDeEdicao(g)}" />
+                </h:column>
+
+                <!-- Remover -->
+                <h:column>
+                    <f:facet name="header">Remover</f:facet>
+                    <h:commandButton value="Remover"
+                                     action="#{generoBean.remover(g)}"
+                                     onclick="return confirm('Tem certeza que deseja remover este gênero?')" />
+                </h:column>
+
             </h:dataTable>
-            <h:commandButton value="Cadastrar gênero" action="#{generoBean.enviarParaPaginaDeCadastro()}" />
-            <h:outputText value="#{generoBean.mensagemResultadoCadastro}" />
+
+            <br/>
+
+            <!-- CADASTRAR -->
+            <h:commandButton value="Cadastrar gênero"
+                             action="#{generoBean.enviarParaPaginaDeCadastro()}" />
+
+            <br/><br/>
+
+            <!-- MENSAGEM -->
+            <h:outputText value="#{generoBean.mensagemResultadoCadastro}" style="color: green;" />
+
         </h:form>
-    </h:body>
-</html>
+
+    </ui:define>
+
+</ui:composition>
