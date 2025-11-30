@@ -9,11 +9,11 @@ import java.io.Serializable;
 
 @Named("loginBean")
 @SessionScoped
-public class LoginBean implements Serializable{
- 
+public class LoginBean implements Serializable {
+
     @Inject
     private UsuarioRepository repository;
-    
+
     private String login;
     private String senha;
     private String mensagem = "";
@@ -50,20 +50,35 @@ public class LoginBean implements Serializable{
     public void setUsuarioLogado(Usuario usuarioLogado) {
         this.usuarioLogado = usuarioLogado;
     }
-    
-    public String fazerLogin(){
+
+    public String fazerLogin() {
+
         Usuario usuarioAuxiliar = repository.buscarPorLogin(login);
-        usuarioLogado = repository.buscarPorLogin(login);
-        if(usuarioAuxiliar.getSenha().equals(senha)){
-            repository.buscarPorLogin(login).setLogado(true);
-            return "InicioJSF.xhtml";
-        }else{
-            mensagem = "Não foi possível efetuar o login";
-            return "";
+
+        // Se usuário não existe
+        if (usuarioAuxiliar == null) {
+            mensagem = "Usuário não encontrado!";
+            return null;
         }
+
+        // Se senha correta
+        if (usuarioAuxiliar.getSenha().equals(senha)) {
+
+            usuarioLogado = usuarioAuxiliar;
+            usuarioLogado.setLogado(true);
+
+            mensagem = "";
+
+            // REDIRECIONA PARA A TELA INÍCIO
+            return "InicioJSF?faces-redirect=true";
+        }
+
+        // Senha incorreta
+        mensagem = "Senha incorreta!";
+        return null;
     }
-    
-    public String trazerParaPagina(){
-        return "LoginJSF.xhtml";
+
+    public String trazerParaPagina() {
+        return "LoginJSF?faces-redirect=true";
     }
 }

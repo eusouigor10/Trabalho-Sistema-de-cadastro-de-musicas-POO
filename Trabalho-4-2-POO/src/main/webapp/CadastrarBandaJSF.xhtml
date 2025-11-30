@@ -2,22 +2,22 @@
 <!DOCTYPE html>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="jakarta.faces.html"
-                xmlns:ui="jakarta.faces.facelets"
                 xmlns:f="jakarta.faces.core"
+                xmlns:ui="jakarta.faces.facelets"
                 template="template.xhtml">
 
-    <ui:define name="title">Cadastrar Gênero</ui:define>
+    <ui:define name="title">Cadastrar Banda</ui:define>
 
     <ui:define name="content">
 
-        <h1>Cadastro de Novo Gênero</h1>
+        <h1>Cadastro de Nova Banda</h1>
 
-        <!-- Tudo dentro do mesmo form -->
+        <!-- TUDO dentro do MESMO form -->
         <h:form>
 
             <h:panelGrid columns="2">
-                <h:outputLabel value="Nome do gênero:" />
-                <h:inputText value="#{generoBean.nomeCadastro}" required="true" />
+                <h:outputLabel value="Nome da Banda:" />
+                <h:inputText value="#{bandaBean.nome}" required="true" />
             </h:panelGrid>
 
             <br/>
@@ -27,11 +27,11 @@
 
                 <!-- SALVAR -->
                 <h:commandButton value="Salvar"
-                                 action="#{generoBean.cadastrar}" />
+                                 action="#{bandaBean.cadastrar}" />
 
                 <!-- CANCELAR sem validar -->
                 <h:commandButton value="Cancelar"
-                                 action="GeneroJSF?faces-redirect=true"
+                                 action="BandaJSF?faces-redirect=true"
                                  immediate="true" />
 
             </div>

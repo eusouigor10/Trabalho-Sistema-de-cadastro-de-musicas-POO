@@ -1,32 +1,31 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html>
-
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="jakarta.faces.html"
                 xmlns:f="jakarta.faces.core"
                 xmlns:ui="jakarta.faces.facelets"
                 template="template.xhtml">
 
-    <ui:define name="title">Editar gênero</ui:define>
+    <ui:define name="title">Editar Banda</ui:define>
 
     <ui:define name="content">
 
-        <h1>Editar Gênero</h1>
+        <h1>Editar Banda</h1>
 
         <h:form>
             <h:panelGrid columns="2">
 
                 <h:outputLabel value="Nome atual:" />
-                <h:outputText id="nomeAtual" value="#{generoBean.generoEditando.nome}" />
+                <h:outputText value="#{bandaBean.bandaSelecionada.nome}" />
 
                 <h:outputLabel value="Novo nome:" />
-                <h:inputText id="novoNome" value="#{generoBean.novoNome}" required="true" />
+                <h:inputText value="#{bandaBean.novoNome}" required="true" />
 
                 <h:commandButton value="Salvar"
-                                 action="#{generoBean.salvarEdicaoGenero}" />
+                                 action="#{bandaBean.salvarEdicao}" />
 
-                <h:commandButton value="Cancelar"
-                                 action="GeneroJSF?faces-redirect=true" />
+                <h:link value="Cancelar" outcome="BandaJSF" />
+
             </h:panelGrid>
         </h:form>
 

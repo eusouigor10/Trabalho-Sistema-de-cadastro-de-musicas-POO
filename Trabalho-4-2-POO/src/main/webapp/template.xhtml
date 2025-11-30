@@ -67,17 +67,24 @@
 
 <h:body>
 
-    <header>
-        <h1>Spobrefy - Sistema de Músicas</h1>
+    <!-- BLOQUEIA MENU EM LOGIN, CADASTRO E BOAS-VINDAS -->
+    <ui:fragment rendered="#{not (view.viewId eq '/LoginJSF.xhtml'
+                              or view.viewId eq '/CadastroJSF.xhtml'
+                              or view.viewId eq '/BoasVindasJSF.xhtml')}">
 
-        <nav>
-            <h:link value="Início" outcome="InicioJSF"/>
-            <h:link value="Bandas" outcome="BandaJSF"/>
-            <h:link value="Músicas" outcome="MusicaJSF"/>
-            <h:link value="Gêneros" outcome="GeneroJSF"/>
-            <h:link value="Usuários" outcome="UsuarioJSF"/>
-        </nav>
-    </header>
+        <header>
+            <h1>Spobrefy - Sistema de Músicas</h1>
+
+            <nav>
+                <h:link value="Início" outcome="InicioJSF"/>
+                <h:link value="Bandas" outcome="BandaJSF"/>
+                <h:link value="Músicas" outcome="MusicaJSF"/>
+                <h:link value="Gêneros" outcome="GeneroJSF"/>
+                <h:link value="Usuários" outcome="UsuarioJSF"/>
+            </nav>
+        </header>
+
+    </ui:fragment>
 
     <div class="content">
         <ui:insert name="content">
@@ -86,7 +93,9 @@
     </div>
 
     <footer>
-        Spobrefy © 2025 — Projeto POO - Guilherme Henrique de Sousa | Igor Gabriel Daré Grubisich    </footer>
+        Spobrefy © 2025 — Projeto POO - Guilherme Henrique de Sousa | 
+        Igor Gabriel Daré Grubisich
+    </footer>
 
 </h:body>
 

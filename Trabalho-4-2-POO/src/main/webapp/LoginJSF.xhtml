@@ -1,16 +1,96 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="jakarta.faces.html">
-    <h:head>
-        <title>Página de login</title>
-    </h:head>
-    <h:body>
-        <h:form>
-            <h:outputText value="Username " /> <h:inputText value="#{loginBean.login}" /> <br/>
-            <h:outputText value="Senha " /> <h:inputText value="#{loginBean.senha}" /> <br/>
-            <h:commandButton value="Fazer login" action="#{loginBean.fazerLogin()}" /> <br/>
-            <h:outputText value="#{loginBean.mensagem}" />
-        </h:form>
-    </h:body>
-</html>
+<!DOCTYPE html>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="jakarta.faces.html"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+                template="template.xhtml">
+
+    <ui:define name="title">Login</ui:define>
+
+    <ui:define name="content">
+
+        <style>
+            .card {
+                max-width: 420px;
+                margin: auto;
+                padding: 35px;
+                background: white;
+                border-radius: 16px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+                text-align: center;
+            }
+
+            .card h2 {
+                margin-bottom: 20px;
+                color: #1db954;
+            }
+
+            .input-field {
+                width: 100%;
+                padding: 10px 12px;
+                border-radius: 8px;
+                border: 1px solid #ccc;
+                margin-bottom: 12px;
+                font-size: 15px;
+            }
+
+            .input-field:focus {
+                border-color: #1db954;
+                outline: none;
+                box-shadow: 0 0 4px rgba(29,185,84,0.4);
+            }
+
+            .btn-green {
+                background: #1db954;
+                color: white !important;
+                border: none;
+                padding: 12px;
+                width: 100%;
+                font-size: 16px;
+                border-radius: 8px;
+                cursor: pointer;
+                transition: 0.2s;
+                margin-top: 10px;
+            }
+
+            .btn-green:hover {
+                background: #17a84a;
+                transform: scale(1.03);
+            }
+
+            .msg-error {
+                color: red;
+                margin-top: 10px;
+            }
+        </style>
+
+        <div class="card">
+            <h2>Fazer Login</h2>
+
+            <h:form>
+
+                <h:inputText value="#{loginBean.login}" 
+                             styleClass="input-field"
+                             required="true"
+                             p:placeholder="Username" />
+
+                <h:inputSecret value="#{loginBean.senha}" 
+                               styleClass="input-field"
+                               required="true"
+                               p:placeholder="Senha" />
+
+                <h:commandButton value="Entrar"
+                                 styleClass="btn-green"
+                                 action="#{loginBean.fazerLogin()}" />
+
+                <h:outputText value="#{loginBean.mensagem}" 
+                              styleClass="msg-error" />
+
+            </h:form>
+        </div>
+
+    </ui:define>
+
+</ui:composition>

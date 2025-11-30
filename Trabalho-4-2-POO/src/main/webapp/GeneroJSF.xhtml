@@ -8,67 +8,81 @@
                 xmlns:ui="jakarta.faces.facelets"
                 template="template.xhtml">
 
-    <ui:define name="title">Página de gêneros</ui:define>
+    <ui:define name="title">Gerenciar Gêneros</ui:define>
 
     <ui:define name="content">
 
+        <h1>🎼 Gerenciar Gêneros</h1>
+
+        <!-- BOTÃO PARA CADASTRAR -->
         <h:form>
+            <h:commandButton value="Cadastrar Novo Gênero"
+                             action="#{generoBean.enviarParaPaginaDeCadastro()}" />
+        </h:form>
 
-            <!-- BUSCA -->
-            <h:outputText value="Buscar por nome " />
-            <h:inputText value="#{generoBean.nomeBusca}">
-                <f:ajax event="keyup" render="tabela" />
-            </h:inputText>
-            <br/><br/>
+        <hr/>
 
-            <!-- TABELA -->
-            <h:dataTable id="tabela"
-             value="#{empty generoBean.listaFiltrada ? generoBean.generos : generoBean.listaFiltrada}"
-             var="g" border="1">
+        <!-- BUSCA -->
+        <h2>Buscar Gêneros</h2>
 
+        <h:form>
+            <h:panelGrid columns="3">
+                <h:outputLabel value="Nome:" />
+                <h:inputText value="#{generoBean.nomeBusca}">
+                    <f:ajax event="keyup" render="tabela" />
+                </h:inputText>
+                <h:commandButton value="Buscar" action="#{generoBean.buscar}" />
+            </h:panelGrid>
+        </h:form>
 
-                <!-- Nome -->
-                <h:column>
-                    <f:facet name="header">Gênero</f:facet>
-                    <h:outputText value="#{g.nome}" />
-                </h:column>
+        <hr/>
 
-                <!-- Ver músicas -->
-                <h:column>
-                    <f:facet name="header">Músicas</f:facet>
-                    <h:commandButton value="Ver"
+        <!-- TABELA -->
+        <h:dataTable id="tabela"
+                     value="#{empty generoBean.listaFiltrada ? generoBean.generos : generoBean.listaFiltrada}"
+                     var="g" border="1">
+
+            <!-- Nome -->
+            <h:column>
+                <f:facet name="header">Gênero</f:facet>
+                <h:outputText value="#{g.nome}" />
+            </h:column>
+
+            <!-- VER MÚSICAS -->
+            <h:column>
+                <f:facet name="header">Músicas</f:facet>
+                <h:form>
+                    <h:commandButton value="Ver Músicas"
                                      action="#{generoBean.enviarParaPaginaDeMusicas(g)}" />
-                </h:column>
+                </h:form>
+            </h:column>
 
-                <!-- Editar -->
-                <h:column>
-                    <f:facet name="header">Editar</f:facet>
+            <!-- EDITAR -->
+            <h:column>
+                <f:facet name="header">Editar</f:facet>
+                <h:form>
                     <h:commandButton value="Editar"
                                      action="#{generoBean.enviarParaPaginaDeEdicao(g)}" />
-                </h:column>
+                </h:form>
+            </h:column>
 
-                <!-- Remover -->
-                <h:column>
-                    <f:facet name="header">Remover</f:facet>
+            <!-- REMOVER -->
+            <h:column>
+                <f:facet name="header">Remover</f:facet>
+                <h:form>
                     <h:commandButton value="Remover"
                                      action="#{generoBean.remover(g)}"
                                      onclick="return confirm('Tem certeza que deseja remover este gênero?')" />
-                </h:column>
+                </h:form>
+            </h:column>
 
-            </h:dataTable>
+        </h:dataTable>
 
-            <br/>
+        <br/>
 
-            <!-- CADASTRAR -->
-            <h:commandButton value="Cadastrar gênero"
-                             action="#{generoBean.enviarParaPaginaDeCadastro()}" />
-
-            <br/><br/>
-
-            <!-- MENSAGEM -->
-            <h:outputText value="#{generoBean.mensagemResultadoCadastro}" style="color: green;" />
-
-        </h:form>
+        <!-- MENSAGEM -->
+        <h:outputText value="#{generoBean.mensagemResultadoCadastro}"
+                      style="color: green;" />
 
     </ui:define>
 

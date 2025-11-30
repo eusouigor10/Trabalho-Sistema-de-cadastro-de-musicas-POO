@@ -1,15 +1,85 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="jakarta.faces.html">
-    <h:head>
-        <title>Página boas-vindas</title>
-    </h:head>
-    <h:body>
+<!DOCTYPE html>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="jakarta.faces.html"
+                xmlns:f="jakarta.faces.core"
+                xmlns:ui="jakarta.faces.facelets"
+                template="template.xhtml">
+
+    <ui:define name="title">Boas-vindas</ui:define>
+
+    <ui:define name="content">
+
+        <style>
+            .welcome-box {
+                background: linear-gradient(145deg, #1ed760, #1db954);
+                padding: 40px;
+                border-radius: 18px;
+                text-align: center;
+                color: white;
+                box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+                margin-bottom: 30px;
+            }
+
+            .welcome-box h1 {
+                margin: 0;
+                font-size: 32px;
+                font-weight: bold;
+            }
+
+            .welcome-box h3 {
+                margin-top: 12px;
+                font-weight: normal;
+                font-size: 18px;
+            }
+
+            .btn-option {
+                background: #1db954;
+                color: white !important;
+                border: none;
+                padding: 12px 25px;
+                font-size: 17px;
+                border-radius: 8px;
+                cursor: pointer;
+                margin-top: 10px;
+                transition: 0.2s;
+                width: 220px;
+            }
+
+            .btn-option:hover {
+                background: #17a84a;
+                transform: scale(1.03);
+            }
+
+            .btn-container {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+                margin-top: 20px;
+            }
+        </style>
+
+        <div class="welcome-box">
+            <h1>Bem-vindo ao Spobrefy!</h1>
+            <h3>Escolha abaixo como deseja continuar:</h3>
+        </div>
+
         <h:form>
-            <h:outputText value="Seja bem-vindo! Escolha uma das opções abaixo" /> <br/>
-            <h:commandButton value="Cadastrar-se" action="#{cadastroBean.trazerParaPagina()}" />
-            <h:commandButton value="Fazer login" action="#{loginBean.trazerParaPagina()}" />
+            <div class="btn-container">
+
+                <h:commandButton styleClass="btn-option"
+                                 value="Cadastrar-se"
+                                 action="#{cadastroBean.trazerParaPagina()}" />
+
+                <h:commandButton styleClass="btn-option"
+                                 value="Fazer login"
+                                 action="#{loginBean.trazerParaPagina()}" />
+
+            </div>
         </h:form>
-    </h:body>
-</html>
+
+    </ui:define>
+
+</ui:composition>

@@ -1,4 +1,3 @@
-
 package JPA;
 
 import Entidades.Banda;
@@ -10,8 +9,8 @@ import jakarta.transaction.Transactional;
 import java.util.List;
 
 @Stateless
-public class BandaRepositoryJPA implements BandaRepository{
-    
+public class BandaRepositoryJPA implements BandaRepository {
+
     @PersistenceContext(unitName = "BancoDeDadosProjetoFinal")
     EntityManager em;
 
@@ -24,30 +23,41 @@ public class BandaRepositoryJPA implements BandaRepository{
     @Override
     @Transactional
     public boolean remover(Banda banda) {
-        if(banda.getMusicas().isEmpty()){
+
+        Banda gerenciada = em.merge(banda);
+
+        // CORRETO (não pode remover se tiver músicas)
+        if (!gerenciada.getMusicas().isEmpty()) {
             return false;
-        }else{
-            em.remove(banda);
-            return true;
         }
+
+        em.remove(gerenciada);
+        return true;
     }
 
     @Override
     public List<Banda> listar() {
         return em.createQuery("SELECT b FROM Banda b", Banda.class).getResultList();
     }
-    
+
     @Override
-    public List<Banda> buscarPorNome(String nome){
-        return em.createQuery("SELECT b FROM Banda b WHERE LOWER(b.nome) LIKE :nome", Banda.class)
-                .setParameter("nome", nome.toLowerCase() + "%").getResultList();
+    public List<Banda> buscarPorNome(String nome) {
+        return em.createQuery(
+                "SELECT b FROM Banda b WHERE LOWER(b.nome) LIKE :nome",
+                Banda.class
+        ).setParameter("nome", nome.toLowerCase() + "%")
+         .getResultList();
     }
 
     @Override
     @Transactional
     public void editarNome(Banda banda, String novoNome) {
-        banda.setNome(novoNome);
-        em.merge(banda);
+        Banda b = em.merge(banda);
+        b.setNome(novoNome);
     }
-    
+
+    @Override
+    public Banda buscarPorId(int id) {
+        return em.find(Banda.class, id);
+    }
 }

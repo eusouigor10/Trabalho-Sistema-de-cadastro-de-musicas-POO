@@ -3,15 +3,14 @@ package Beans;
 import Entidades.Genero;
 import Entidades.Musica;
 import Repository.GeneroRepository;
-import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import jakarta.enterprise.context.SessionScoped;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 @Named("generoBean")
-@ViewScoped
+@SessionScoped
 public class GeneroBean implements Serializable {
 
     @Inject
@@ -45,7 +44,7 @@ public class GeneroBean implements Serializable {
 
     public void filtrar() {
         if (nome == null || nome.isEmpty()) {
-            listaFiltrada = new ArrayList<>();
+            listaFiltrada = generoRepository.listar();
             return;
         }
         listaFiltrada = generoRepository.buscarPorNome(nome);
@@ -59,9 +58,10 @@ public class GeneroBean implements Serializable {
             generoRepository.cadastrar(genero);
             mensagemResultadoCadastro = "Cadastro concluído com sucesso!";
 
-            nomeCadastro = "";          // limpa campo
-            generos = null;    
-            listaFiltrada = null; // força recarregar a tabela
+            nomeCadastro = "";
+            generos = null;
+            listaFiltrada = null;
+
             return "GeneroJSF.xhtml?faces-redirect=true";
 
         } catch (Exception e) {
