@@ -50,8 +50,12 @@ public class UsuarioRepositoryJPA implements UsuarioRepository {
     
     @Override
     public Usuario buscarPorLogin(String login){
-        return em.createQuery("SELECT u FROM Usuario u WHERE u.login = :login", Usuario.class)
-                .setParameter("login", login).getSingleResult();
+        var lista = em.createQuery(
+            "SELECT u FROM Usuario u WHERE u.login = :login", Usuario.class)
+            .setParameter("login", login)
+            .getResultList();
+
+        return lista.isEmpty() ? null : lista.get(0);
     }
     
 }
