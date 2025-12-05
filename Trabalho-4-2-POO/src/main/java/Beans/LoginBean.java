@@ -76,4 +76,9 @@ public class LoginBean implements Serializable {
     public String trazerParaPagina() {
         return "LoginJSF?faces-redirect=true";
     }
+    
+    public String logout(){
+        usuarioLogado = null;
+        return "BoasVindasJSF?faces-redirect=true";
+    }
 }

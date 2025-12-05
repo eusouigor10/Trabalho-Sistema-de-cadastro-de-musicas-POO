@@ -80,7 +80,16 @@
                 <h:link value="Bandas" outcome="BandaJSF"/>
                 <h:link value="Músicas" outcome="MusicaJSF"/>
                 <h:link value="Gêneros" outcome="GeneroJSF"/>
-                <h:link value="Usuários" outcome="UsuarioJSF"/>
+                <h:link value="Usuário" outcome="UsuarioJSF"/>
+
+                <h:form style="display:inline;">
+                    <h:commandLink value="Sair"
+                        action="#{loginBean.logout}"
+                        style="color:#ff4d4d; font-weight:bold;"
+                        onmouseover="this.style.color='#ff1a1a'"
+                        onmouseout="this.style.color='#ff4d4d'" />
+                </h:form>
+
             </nav>
         </header>
 
