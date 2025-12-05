@@ -108,7 +108,6 @@
         <div rendered="#{loginBean.usuarioLogado.logado and loginBean.usuarioLogado != null}">
             <h1 class="page-title">🎵 Gerenciar Bandas</h1>
 
-            <!-- BOTÃO PARA CADASTRAR -->
             <h:form>
                 <h:commandButton value="Cadastrar Nova Banda"
                                  styleClass="btn-primary"
@@ -117,12 +116,20 @@
 
             <h2 class="section-title">Buscar Bandas</h2>
 
-            <!-- FORM DE BUSCA -->
             <h:form>
                 <h:panelGrid columns="3" styleClass="search-grid">
                     <h:outputLabel value="Nome:" />
-                    <h:inputText value="#{bandaBean.nome}" style="padding:6px; border-radius:6px; border:1px solid #ccc;" />
-                    <h:commandButton value="Buscar" styleClass="btn-primary" action="#{bandaBean.filtrar}" />
+
+                    <h:inputText value="#{bandaBean.nome}"
+                                 style="padding:6px; border-radius:6px; border:1px solid #ccc;">
+                        <f:ajax event="keyup"
+                                render="tabela"
+                                listener="#{bandaBean.filtrar}" />
+                    </h:inputText>
+
+                    <h:commandButton value="Buscar"
+                                     styleClass="btn-primary"
+                                     action="#{bandaBean.filtrar}" />
                 </h:panelGrid>
             </h:form>
 
@@ -132,7 +139,8 @@
                           styleClass="message" />
 
             <!-- TABELA -->
-            <h:dataTable value="#{bandaBean.listaFiltrada}"
+            <h:dataTable id="tabela"
+                         value="#{bandaBean.listaFiltrada}"
                          var="banda"
                          border="1">
 
@@ -145,7 +153,8 @@
                 <h:column>
                     <f:facet name="header">Músicas</f:facet>
                     <h:form>
-                        <h:commandButton value="Ver Músicas" styleClass="btn-action btn-view"
+                        <h:commandButton value="Ver Músicas"
+                                         styleClass="btn-action btn-view"
                                          action="#{bandaBean.selecionar(banda)}" />
                     </h:form>
                 </h:column>
@@ -154,7 +163,8 @@
                 <h:column rendered="#{loginBean.usuarioLogado.adm}">
                     <f:facet name="header">Editar</f:facet>
                     <h:form>
-                        <h:commandButton value="Editar" styleClass="btn-action btn-edit"
+                        <h:commandButton value="Editar"
+                                         styleClass="btn-action btn-edit"
                                          action="#{bandaBean.irParaEdicao(banda)}" />
                     </h:form>
                 </h:column>
@@ -163,7 +173,8 @@
                 <h:column rendered="#{loginBean.usuarioLogado.adm}">
                     <f:facet name="header">Remover</f:facet>
                     <h:form>
-                        <h:commandButton value="Remover" styleClass="btn-action btn-remove"
+                        <h:commandButton value="Remover"
+                                         styleClass="btn-action btn-remove"
                                          action="#{bandaBean.remover(banda)}"
                                          onclick="return confirm('Tem certeza que deseja remover esta banda?')" />
                     </h:form>
