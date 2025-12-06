@@ -27,4 +27,6 @@ public interface MusicaRepository {
     public void editarBanda(Musica musica, Banda novaBanda);
     
     public void removerMusica(Musica musica);
+    
+    public List<Musica> buscarPorNome(String nome);
 }

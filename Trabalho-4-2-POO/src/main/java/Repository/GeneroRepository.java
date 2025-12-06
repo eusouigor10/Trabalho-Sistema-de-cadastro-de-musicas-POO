@@ -16,4 +16,6 @@ public interface GeneroRepository {
     public boolean remover(Genero genero);
     
     public List<Genero> buscarPorNome(String nome);
+    
+    public Genero buscarPorNomeUnico(String genero);
 }

@@ -1,6 +1,7 @@
 
 package Entidades;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -14,6 +15,9 @@ public class Usuario {
     private int id;
     
     private String nome;
+    
+    @Column(unique = true)
+    
     private String login;
     private String senha;
     private boolean adm = false;

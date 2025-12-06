@@ -39,6 +39,10 @@ public class BandaBean implements Serializable {
             listaFiltrada = repository.buscarPorNome(nome);
         }
     }
+    
+    public List<Banda> bandas(){
+        return repository.listar();
+    }
 
     public String irParaCadastro() {
         nome = "";

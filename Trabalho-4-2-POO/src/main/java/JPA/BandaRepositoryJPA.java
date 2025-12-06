@@ -47,6 +47,15 @@ public class BandaRepositoryJPA implements BandaRepository {
         ).setParameter("nome", nome.toLowerCase() + "%")
          .getResultList();
     }
+    
+    @Override
+    public Banda buscarPorNomeUnico(String nome) {
+        return em.createQuery(
+                "SELECT b FROM Banda b WHERE LOWER(b.nome) LIKE :nome",
+                Banda.class
+        ).setParameter("nome", nome.toLowerCase() + "%")
+         .getSingleResult();
+    }
 
     @Override
     @Transactional

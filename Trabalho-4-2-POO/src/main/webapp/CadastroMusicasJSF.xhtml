@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core">
+    <h:head>
+        <title>Página de cadastro de músicas</title>
+    </h:head>
+    <h:body>
+        <div rendered="#{loginBean.usuarioLogado.logado and loginBean.usuarioLogado != null}" >
+            <h:form>
+                <h:outputText value="Insira o nome da música " /> <h:inputText value="#{musicaBean.nome}" /> <br/>
+                <h:selectOneMenu value="#{musicaBean.generoSelecionado}" >
+                    <f:selectItem itemLabel="Selecione o gênero" noSelectionOption="false" />
+                    <f:selectItems var="g" itemLabel="#{g.nome}" value="#{generoBean.generos}" itemValue="#{g.nome}"/>
+                </h:selectOneMenu> <br/>
+                <h:selectOneMenu value="#{musicaBean.bandaSelecionada}" >
+                    <f:selectItem itemLabel="Seleciona a banda" noSelectionOption="false" />
+                    <f:selectItems var="b" itemLabel="#{b.nome}" value="#{bandaBean.bandas()}" itemValue="#{b.nome}"/>
+                </h:selectOneMenu>
+                <h:commandButton value="Cadastrar" action="#{musicaBean.cadastrarMusica()}" />
+            </h:form>
+        </div>
+    </h:body>
+</html>

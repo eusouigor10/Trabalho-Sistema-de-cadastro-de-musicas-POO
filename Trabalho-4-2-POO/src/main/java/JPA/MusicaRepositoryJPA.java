@@ -22,6 +22,12 @@ public class MusicaRepositoryJPA implements MusicaRepository {
         TypedQuery<Musica> query = em.createQuery("SELECT m FROM Musica m", Musica.class);
         return query.getResultList();
     }
+    
+    @Override
+    public List<Musica> buscarPorNome(String nome) {
+        return em.createQuery("SELECT m FROM Musica m WHERE LOWER(m.nome) LIKE :nome", Musica.class)
+                .setParameter("nome", nome.toLowerCase() + "%").getResultList();
+    }
 
     @Override
     public List<Musica> buscarPorGenero(Genero genero) {

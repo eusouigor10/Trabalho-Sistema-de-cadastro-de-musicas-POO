@@ -57,4 +57,10 @@ public class GeneroRepositoryJPA implements GeneroRepository{
                 .setParameter("nome", nome.toLowerCase() + "%").getResultList();
     }
     
+    @Override
+    public Genero buscarPorNomeUnico(String nome) {
+        return em.createQuery("SELECT g FROM Genero g WHERE LOWER(g.nome) LIKE :nome", Genero.class)
+                .setParameter("nome", nome.toLowerCase() + "%").getSingleResult();
+    }
+    
 }

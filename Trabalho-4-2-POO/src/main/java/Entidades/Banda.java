@@ -1,5 +1,6 @@
 package Entidades;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -13,6 +14,7 @@ public class Banda {
     @GeneratedValue
     private int id;
     
+    @Column(unique = true)
     private String nome;
     
     @OneToMany(mappedBy = "banda")

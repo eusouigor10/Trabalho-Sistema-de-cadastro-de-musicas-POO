@@ -16,4 +16,6 @@ public interface BandaRepository {
     List<Banda> buscarPorNome(String nome);
 
     Banda buscarPorId(int id);
+    
+    Banda buscarPorNomeUnico(String banda);
 }
