@@ -6,40 +6,86 @@
                 xmlns:ui="jakarta.faces.facelets"
                 template="template.xhtml">
 
-    <div rendered="#{loginBean.usuarioLogado.logado and loginBean.usuarioLogado != null}">
-        <ui:define name="title">Músicas do Gênero</ui:define>
+    <ui:define name="title">Músicas do Gênero</ui:define>
 
-        <ui:define name="content">
+    <ui:define name="content">
+
+        <style>
+            .page-title-small {
+                font-size: 1.8rem;
+                font-weight: bold;
+                color: #2c3e50;
+                margin-bottom: 15px;
+                text-align: center;
+            }
+
+            .btn-primary {
+                background-color: #3498db;
+                color: white;
+                padding: 10px 18px;
+                border-radius: 8px;
+                border: none;
+                cursor: pointer;
+                transition: 0.3s;
+            }
+            .btn-primary:hover {
+                background-color: #2980b9;
+            }
+
+            .table-modern {
+                width: 100%;
+                border-collapse: collapse;
+                background: #fff;
+                margin-top: 20px;
+                border-radius: 8px;
+                overflow: hidden;
+            }
+
+            .table-modern th {
+                background-color: #ecf0f1;
+                padding: 12px;
+                font-weight: bold;
+                color: #2c3e50;
+            }
+
+            .table-modern td {
+                padding: 12px;
+                border-bottom: 1px solid #eee;
+            }
+
+            .table-modern tr:nth-child(even) {
+                background-color: #f9f9f9;
+            }
+
+            .table-modern tr:hover {
+                background-color: #eef5ff;
+            }
+        </style>
+
+        <div rendered="#{loginBean.usuarioLogado.logado and loginBean.usuarioLogado != null}">
 
             <h1>🎼 Músicas do gênero: #{generoBean.generoPassado.nome}</h1>
 
-            <!-- TABELA DE MÚSICAS -->
             <h:dataTable value="#{generoBean.generoPassado.musicas}"
                          var="m"
-                         border="1">
+                         styleClass="table-modern">
 
-                <!-- Nome -->
                 <h:column>
                     <f:facet name="header">Nome</f:facet>
                     <h:outputText value="#{m.nome}" />
-                </h:column>
-
-                <!-- Duração -->
-                <h:column>
-                    <f:facet name="header">Duração</f:facet>
-                    <h:outputText value="#{m.duracao}" />
                 </h:column>
 
             </h:dataTable>
 
             <br/>
 
-            <!-- BOTÃO VOLTAR -->
             <h:form>
                 <h:commandButton value="Voltar"
+                                 styleClass="btn-primary"
                                  action="GeneroJSF?faces-redirect=true" />
             </h:form>
 
-        </ui:define>
-    </div>
+        </div>
+
+    </ui:define>
 </ui:composition>
