@@ -179,7 +179,7 @@
                     <h:column>
                         <f:facet name="header">Favorita</f:facet>
                         <h:commandButton value="#{musicaBean.getMensagemBotaoFavorita(m)}" action="#{musicaBean.acaoFavoritarOuDesfavoritar(m)}">
-                            <f:ajax execute="@this" render=":musicaForm" />
+                            <f:ajax execute="@this" render=":musicaForm :favoritasForm" />
                         </h:commandButton>
                     </h:column>
 
@@ -198,6 +198,19 @@
                                          onclick="return confirm('Tem certeza que deseja remover esta música?')" />
                     </h:column>
 
+                </h:dataTable>
+                <h:outputText value="#{musicaBean.resultadoRemocao}" />
+            </h:form>
+
+            <br/>
+
+            <f:event type="preRenderView" listener="#{musicaBean.atualizarFavoritas()}" />
+            <h:form id="favoritasForm">
+                <h:dataTable value="#{musicaBean.listaFavoritas}" var="f">
+                    <h:column>
+                        <f:facet name="header">Música</f:facet>
+                        <h:outputText value="#{f.nome}" />
+                    </h:column>
                 </h:dataTable>
             </h:form>
 

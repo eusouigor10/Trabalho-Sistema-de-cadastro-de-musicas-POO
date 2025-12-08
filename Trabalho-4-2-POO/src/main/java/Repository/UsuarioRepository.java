@@ -3,6 +3,7 @@ package Repository;
 
 import Entidades.Musica;
 import Entidades.Usuario;
+import java.util.List;
 
 public interface UsuarioRepository {
     
@@ -25,4 +26,6 @@ public interface UsuarioRepository {
     public void desfavoritar(Usuario usuario, Musica musica);
     
     public boolean verificarFavorita(Usuario usuario, Musica musica);
+    
+    public List<Usuario> listarTodos();
 }

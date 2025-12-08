@@ -49,6 +49,7 @@ public class MusicaBean implements Serializable {
     private String novaBanda;
     private String novoGenero;
     private String mensagemBotaoFavorita;
+    private String resultadoRemocao = "";
 
     public String cadastrarMusica() {
         Musica musica = new Musica();
@@ -65,9 +66,21 @@ public class MusicaBean implements Serializable {
         nome = "";
         return "MusicaJSF.xhtml";
     }
+
+    public List<Usuario> getListaDeUsuarios() {
+        return usuarioRepository.listarTodos();
+    }
     
     public String irParaPaginaDeCadastroDeMusica(){
         return "CadastroMusicasJSF.xhtml";
+    }
+
+    public String getResultadoRemocao() {
+        return resultadoRemocao;
+    }
+
+    public void setResultadoRemocao(String resultadoRemocao) {
+        this.resultadoRemocao = resultadoRemocao;
     }
     
     public String getMensagemBotaoFavorita(Musica musica){
@@ -94,6 +107,10 @@ public class MusicaBean implements Serializable {
 
     public Usuario getUsuarioAtual() {
         return usuarioAtual;
+    }
+    
+    public void atualizarFavoritas(){
+        listaFavoritas = loginBean.getUsuarioLogado().getMusicasFavoritas();
     }
 
     public void setUsuarioAtual(Usuario usuarioAtual) {
@@ -229,6 +246,13 @@ public class MusicaBean implements Serializable {
     }
 
     public void removerMusica(Musica musica) {
+        for(Usuario u : getListaDeUsuarios()){
+            if(u.getMusicasFavoritas().contains(musica)){
+                resultadoRemocao = "Não foi possível remover a música pois ela é favorita de algum usuário";
+                return;
+            }
+        }
+        resultadoRemocao = "";
         this.musicaRepository.removerMusica(musica);
     }
 

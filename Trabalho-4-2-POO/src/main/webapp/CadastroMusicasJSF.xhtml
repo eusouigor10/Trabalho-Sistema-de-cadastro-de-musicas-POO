@@ -73,7 +73,9 @@
 
                     <label>Nome da Música:</label>
                     <h:inputText value="#{musicaBean.nome}" 
-                                 styleClass="input-field" />
+                                 styleClass="input-field" > 
+                        <f:validateLength minimum="1" maximum="100" />
+                    </h:inputText>
 
                     <label>Gênero:</label>
                     <h:selectOneMenu value="#{musicaBean.generoSelecionado}" 

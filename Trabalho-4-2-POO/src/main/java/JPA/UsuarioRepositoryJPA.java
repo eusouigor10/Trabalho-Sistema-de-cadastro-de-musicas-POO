@@ -7,6 +7,7 @@ import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
+import java.util.List;
 
 @Stateless
 public class UsuarioRepositoryJPA implements UsuarioRepository {
@@ -103,6 +104,11 @@ public class UsuarioRepositoryJPA implements UsuarioRepository {
         } else {
             return false;
         }
+    }
+
+    @Override
+    public List<Usuario> listarTodos() {
+        return em.createQuery("SELECT u FROM Usuario u", Usuario.class).getResultList();
     }
 
 }

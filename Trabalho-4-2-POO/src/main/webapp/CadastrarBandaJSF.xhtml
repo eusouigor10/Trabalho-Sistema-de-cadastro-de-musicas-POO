@@ -80,7 +80,9 @@
 
                 <h:panelGrid columns="2" columnClasses="form-grid-label,form-grid-input" styleClass="form-grid" cellpadding="8">
                     <h:outputLabel value="Nome da Banda:" />
-                    <h:inputText value="#{bandaBean.nome}" required="true" />
+                    <h:inputText value="#{bandaBean.nome}" required="true" > 
+                        <f:validateLength minimum="1" maximum="100" />
+                    </h:inputText>
                 </h:panelGrid>
 
                 <div class="btn-row">
