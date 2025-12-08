@@ -58,20 +58,6 @@ public class MusicaRepositoryJPA implements MusicaRepository {
 
     @Override
     @Transactional
-    public void marcarFavorita(Musica musica) {
-        musica.setFavorita(true);
-        em.merge(musica);
-    }
-
-    @Override
-    @Transactional
-    public void desmarcarFavorita(Musica musica) {
-        musica.setFavorita(false);
-        em.merge(musica);
-    }
-
-    @Override
-    @Transactional
     public void editarNome(Musica musica, String novoNome) {
         musica.setNome(novoNome);
         em.merge(musica);

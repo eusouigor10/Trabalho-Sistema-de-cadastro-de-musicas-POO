@@ -31,6 +31,10 @@ public class UsuarioBean {
         usuarioAtual = loginBean.getUsuarioLogado();
         this.usuarioRepository.editarNome(usuarioAtual, novoNome);
     }
+    
+    public String irParaPaginaDeMusicas(){
+        return "MusicaJSF.xhtml";
+    }
 
     public String getNomeAtual() {
         return loginBean.getUsuarioLogado().getNome();

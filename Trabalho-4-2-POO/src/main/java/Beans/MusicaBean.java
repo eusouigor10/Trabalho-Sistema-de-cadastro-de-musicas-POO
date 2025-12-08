@@ -3,9 +3,11 @@ package Beans;
 import Entidades.Banda;
 import Entidades.Genero;
 import Entidades.Musica;
+import Entidades.Usuario;
 import Repository.BandaRepository;
 import Repository.GeneroRepository;
 import Repository.MusicaRepository;
+import Repository.UsuarioRepository;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -24,11 +26,19 @@ public class MusicaBean implements Serializable {
 
     @Inject
     private BandaRepository bandaRepository;
+    
+    @Inject
+    private UsuarioRepository usuarioRepository;
+    
+    @Inject
+    private LoginBean loginBean;
 
     private Genero genero;
     private Banda banda;
     private String nome;
     private List<Musica> listaFiltrada;
+    private Usuario usuarioAtual;
+    private List<Musica> listaFavoritas;
     
     private String nomeSelecionado;
     private String generoSelecionado;
@@ -38,6 +48,7 @@ public class MusicaBean implements Serializable {
     private String novoNome;
     private String novaBanda;
     private String novoGenero;
+    private String mensagemBotaoFavorita;
 
     public String cadastrarMusica() {
         Musica musica = new Musica();
@@ -57,6 +68,56 @@ public class MusicaBean implements Serializable {
     
     public String irParaPaginaDeCadastroDeMusica(){
         return "CadastroMusicasJSF.xhtml";
+    }
+    
+    public String getMensagemBotaoFavorita(Musica musica){
+        usuarioAtual = loginBean.getUsuarioLogado();
+        if(usuarioRepository.verificarFavorita(usuarioAtual, musica)){
+            mensagemBotaoFavorita = "Desfavoritar";
+            return mensagemBotaoFavorita;
+        }else{
+            mensagemBotaoFavorita = "Favoritar";
+            return mensagemBotaoFavorita;
+        }
+    }
+    
+    public void acaoFavoritarOuDesfavoritar(Musica musica){
+        usuarioAtual = loginBean.getUsuarioLogado();
+        if(usuarioRepository.verificarFavorita(usuarioAtual, musica)){
+            usuarioRepository.desfavoritar(usuarioAtual, musica);
+        }else{
+            usuarioRepository.favoritar(usuarioAtual, musica);
+        }
+        
+        listaFavoritas = usuarioAtual.getMusicasFavoritas();
+    }
+
+    public Usuario getUsuarioAtual() {
+        return usuarioAtual;
+    }
+
+    public void setUsuarioAtual(Usuario usuarioAtual) {
+        this.usuarioAtual = usuarioAtual;
+    }
+    
+    public void favoritar(Musica musica){
+        usuarioAtual = loginBean.getUsuarioLogado();
+        usuarioRepository.favoritar(usuarioAtual, musica);
+        listaFavoritas = usuarioAtual.getMusicasFavoritas();
+    }
+    
+    public void desfavoritar(Musica musica){
+        usuarioAtual = loginBean.getUsuarioLogado();
+        usuarioRepository.desfavoritar(usuarioAtual, musica);
+        listaFavoritas = usuarioAtual.getMusicasFavoritas();
+    }
+
+    public List<Musica> getListaFavoritas() {
+        return listaFavoritas;
+    }
+
+    public void setListaFavoritas(List<Musica> listaFavoritas) {
+        this.listaFavoritas = listaFavoritas;
     }
 
     public String getNomeSelecionado() {
@@ -150,14 +211,6 @@ public class MusicaBean implements Serializable {
 
     public List<Musica> buscarPorBanda(Banda banda) {
         return this.musicaRepository.buscarPorBanda(banda);
-    }
-
-    public void marcarMusicaFavorita(Musica musica) {
-        this.musicaRepository.marcarFavorita(musica);
-    }
-
-    public void desmarcarMusicaFavorita(Musica musica) {
-        this.musicaRepository.desmarcarFavorita(musica);
     }
 
     public void atualizarNomeMusica(Musica musica, String novoNome) {

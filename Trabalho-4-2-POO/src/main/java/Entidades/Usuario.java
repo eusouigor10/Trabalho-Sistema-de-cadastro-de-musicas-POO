@@ -3,9 +3,11 @@ package Entidades;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import java.util.Set;
+import jakarta.persistence.ManyToMany;
+import java.util.List;
 
 @Entity
 public class Usuario {
@@ -39,7 +41,8 @@ public class Usuario {
         this.adm = adm;
     }
     
-    private Set<Musica> musicasFavoritas; 
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<Musica> musicasFavoritas; 
 
     public String getNome() {
         return nome;
@@ -63,5 +66,21 @@ public class Usuario {
 
     public void setLogado(boolean logado) {
         this.logado = logado;
+    }
+
+    public List<Musica> getMusicasFavoritas() {
+        return musicasFavoritas;
+    }
+
+    public void setMusicasFavoritas(List<Musica> musicasFavoritas) {
+        this.musicasFavoritas = musicasFavoritas;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

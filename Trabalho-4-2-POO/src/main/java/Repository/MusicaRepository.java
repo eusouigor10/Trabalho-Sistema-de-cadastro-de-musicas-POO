@@ -16,10 +16,6 @@ public interface MusicaRepository {
         
     public void cadastrar(Musica musica);
     
-    public void marcarFavorita(Musica musica);
-    
-    public void desmarcarFavorita(Musica musica);
-    
     public void editar(Musica musica);
     
     public void editarNome(Musica musica, String novoNome);

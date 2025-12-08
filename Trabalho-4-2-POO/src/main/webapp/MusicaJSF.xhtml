@@ -156,45 +156,50 @@
                 </h:panelGrid>
             </h:form>
 
-            <h:dataTable id="tabela"
-                         value="#{musicaBean.listaFiltradaPorNome}"
-                         var="m">
+            <h:form id="musicaForm">
+                <h:dataTable id="tabela"
+                             value="#{musicaBean.listaFiltradaPorNome}"
+                             var="m">
 
-                <h:column>
-                    <f:facet name="header">Nome</f:facet>
-                    <h:outputText value="#{m.nome}" />
-                </h:column>
+                    <h:column>
+                        <f:facet name="header">Nome</f:facet>
+                        <h:outputText value="#{m.nome}" />
+                    </h:column>
 
-                <h:column>
-                    <f:facet name="header">Gênero</f:facet>
-                    <h:outputText value="#{m.genero.nome}" />
-                </h:column>
+                    <h:column>
+                        <f:facet name="header">Gênero</f:facet>
+                        <h:outputText value="#{m.genero.nome}" />
+                    </h:column>
 
-                <h:column>
-                    <f:facet name="header">Banda</f:facet>
-                    <h:outputText value="#{m.banda.nome}" />
-                </h:column>
+                    <h:column>
+                        <f:facet name="header">Banda</f:facet>
+                        <h:outputText value="#{m.banda.nome}" />
+                    </h:column>
 
-                <h:column rendered="#{loginBean.usuarioLogado.adm}">
-                    <f:facet name="header">Editar</f:facet>
-                    <h:form>
+                    <h:column>
+                        <f:facet name="header">Favorita</f:facet>
+                        <h:commandButton value="#{musicaBean.getMensagemBotaoFavorita(m)}" action="#{musicaBean.acaoFavoritarOuDesfavoritar(m)}">
+                            <f:ajax execute="@this" render=":musicaForm" />
+                        </h:commandButton>
+                    </h:column>
+
+                    <h:column rendered="#{loginBean.usuarioLogado.adm}">
+                        <f:facet name="header">Editar</f:facet>
                         <h:commandButton value="Editar"
                                          styleClass="btn-action btn-edit"
                                          action="#{musicaBean.irParaPaginaDeEdicao(m)}" />
-                    </h:form>
-                </h:column>
+                    </h:column>
 
-                <h:column rendered="#{loginBean.usuarioLogado.adm}">
-                    <f:facet name="header">Remover</f:facet>
-                    <h:form>
+                    <h:column rendered="#{loginBean.usuarioLogado.adm}">
+                        <f:facet name="header">Remover</f:facet>
                         <h:commandButton value="Remover"
                                          styleClass="btn-action btn-remove"
                                          action="#{musicaBean.removerMusica(m)}"
                                          onclick="return confirm('Tem certeza que deseja remover esta música?')" />
-                    </h:form>
-                </h:column>
+                    </h:column>
 
-            </h:dataTable>
+                </h:dataTable>
+            </h:form>
 
         </div>
 

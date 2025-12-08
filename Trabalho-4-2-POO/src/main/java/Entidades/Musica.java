@@ -6,7 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 public class Musica {
@@ -16,9 +16,7 @@ public class Musica {
     private int id;
 
     @Column(unique = true)
-    private String nome;    
-    
-    private boolean favorita;    
+    private String nome;
 
     @ManyToOne
     private Genero genero;
@@ -27,7 +25,7 @@ public class Musica {
     private Banda banda;
 
     @ManyToMany(mappedBy = "musicasFavoritas")
-    private Set<Usuario> usuarios;
+    private List<Usuario> usuarios;
 
     public int getId() {
         return id;
@@ -43,14 +41,6 @@ public class Musica {
 
     public void setNome(String novoNome) {
         this.nome = novoNome;
-    }
-
-    public boolean isFavorita() {
-        return favorita;
-    }
-
-    public void setFavorita(boolean favorita) {
-        this.favorita = favorita;
     }
 
     public Genero getGenero() {
@@ -69,11 +59,37 @@ public class Musica {
         this.banda = banda;
     }
 
-    public Set<Usuario> getUsuarios() {
+    public List<Usuario> getUsuarios() {
         return usuarios;
     }
 
-    public void setUsuarios(Set<Usuario> usuarios) {
+    public void setUsuarios(List<Usuario> usuarios) {
         this.usuarios = usuarios;
+    }
+
+    // Arquivo: Entidades/Musica.java
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 29 * hash + this.id;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Musica other = (Musica) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        return true;
     }
 }
